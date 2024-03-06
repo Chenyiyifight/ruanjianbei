@@ -17,5 +17,6 @@ git使用方式：https://blog.csdn.net/ingenuou_/article/details/107452638
   $ git commit -m '描述'        # 提交,添加操作说明
   $ git push -u origin master   # 将本次更改更新到github项目上去
   $ git push -u origin master   # 提交
+3>提交的分支你们可以自己在设
   
 有时候可能会提交异常，重新拉取一下重新尝试，遇到报错多尝试。
