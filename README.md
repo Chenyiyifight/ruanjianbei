@@ -18,5 +18,8 @@ git使用方式：https://blog.csdn.net/ingenuou_/article/details/107452638
   $ git push -u origin master   # 将本次更改更新到github项目上去
   $ git push -u origin master   # 提交
 3>提交的分支你们可以自己在设
+
+4>具体使用分工
+https://zhuanlan.zhihu.com/p/519343836
   
 有时候可能会提交异常，重新拉取一下重新尝试，遇到报错多尝试。
