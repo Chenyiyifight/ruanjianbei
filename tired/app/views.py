@@ -127,7 +127,7 @@ def predict_data(request):
     # 构建返回的数据字典
     response_data = {
         'f1_score': f1,
-        #'confidence': confidence.tolist()  # 将numpy数组转换为列表
+        'confidence': confidence.tolist()  # 将numpy数组转换为列表
     }
 
     # 将数据转换为JSON格式

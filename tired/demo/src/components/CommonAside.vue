@@ -56,7 +56,7 @@ export default {
     return {
       menuData: [
         {
-          path: "/",
+          path: "/home",
           name: "home",
           label: "Home",
           icon: "s-home",
@@ -118,7 +118,7 @@ export default {
     clickMenu(item){
       console.log(item);
       //当页面路由与跳转不一样时允许跳转
-      if(this.$route.path!=item.path&& !(this.$route.path==='/home'&&(item.path==='/'))){
+      if(this.$route.path!=item.path){
         this.$router.push(item.path)
       }
 

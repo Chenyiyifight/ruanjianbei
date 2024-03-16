@@ -11,15 +11,16 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>用户中心</el-dropdown-item>
-                    <el-dropdown-item>退出</el-dropdown-item>
+                    <el-dropdown-item @click.native="layout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
 
     </div>
 </template>
-<script>
 
+<script>
+import Cookie from 'js-cookie';
 export default {
     data() {
         return {}
@@ -27,9 +28,13 @@ export default {
     methods: {
         handleMenu() {
             this.$store.commit('collapseMenu')
+        },
+        layout(){
+            //清楚cookie中token
+            Cookie.remove('token')
+            this.$router.push('/login')
         }
     }
-
 }
 </script>
 
