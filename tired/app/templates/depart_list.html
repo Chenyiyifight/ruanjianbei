@@ -80,6 +80,7 @@
     line-height: 320px;
   }
 </style>
+
 </body>
  	<!--引入 element-ui 的样式，-->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -91,6 +92,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="https://unpkg.com/vue-router@4"></script>
+
 <script>
   new Vue({
     el: '#app',
@@ -127,7 +129,6 @@
           console.error(error);
         });
       },
-
       jump2() {
         axios.get('/predict/data')
         .then(response => {
