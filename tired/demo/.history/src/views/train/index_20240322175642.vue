@@ -21,7 +21,6 @@
 <script>
 import axios from 'axios';
 import { getData } from '../../api'
-import { trainMo} from '../../api'
 export default {
     data() {
         return {
@@ -44,8 +43,7 @@ export default {
         
 
         jump1() {
-
-            trainMo()
+            axios.get('api/train/model')
                 .then(response => {
                     console.log(response);
                 })

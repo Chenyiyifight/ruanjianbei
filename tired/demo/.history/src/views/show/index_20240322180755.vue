@@ -1,19 +1,8 @@
 <template>
     <div>
         <h1>show</h1>
-        <el-row>
-            <el-col :span="10">
-                <div class="grid-content bg-purple">
-                    <e-charts class="chart" :option="option1" />
-                </div>
-            </el-col>
-            <el-col :span="14">
-                <div class="grid-content bg-purple-light">
-                    <e-charts class="chart" :option="option2" />
-                </div>
-            </el-col>
-        </el-row>
-        <div></div>
+        <e-charts class="chart" :option="option1" />
+        <e-charts class="chart" :option="option2" />
     </div>
 </template>
 

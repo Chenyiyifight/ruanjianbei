@@ -2,7 +2,7 @@
 
     <div>
         <h1>train</h1>
-        <el-upload class="upload-demo" action="http://localhost:8000/api/upload/" :on-preview="handlePreview" :on-remove="handleRemove"
+        <el-upload class="upload-demo" action="api//upload/" :on-preview="handlePreview" :on-remove="handleRemove"
             :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传excel文件，且不超过500kb</div>
@@ -21,7 +21,6 @@
 <script>
 import axios from 'axios';
 import { getData } from '../../api'
-import { trainMo} from '../../api'
 export default {
     data() {
         return {
@@ -44,8 +43,7 @@ export default {
         
 
         jump1() {
-
-            trainMo()
+            axios.get('api/train/model')
                 .then(response => {
                     console.log(response);
                 })

@@ -2,7 +2,7 @@
     <div>
         <h1>show</h1>
         <el-row>
-            <el-col :span="10">
+            <el-col :span="8">
                 <div class="grid-content bg-purple">
                     <e-charts class="chart" :option="option1" />
                 </div>

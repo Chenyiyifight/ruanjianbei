@@ -41,10 +41,10 @@ urlpatterns = [
     path('api/login', ApiUser.as_view({'post': 'login'})),
     path('api/register/', ApiUser.as_view({'post': 'register'})),
 
-    path('depart/list/', views.depart_list),
-    path('upload/', views.upload_excel),
-    path('train/model', views.train_model),
-    path('/api/predict/data', views.predict_data)
+    path('api/depart/list/', views.depart_list),
+    path('api/upload/', views.upload_excel),
+    path('api/train/model', views.train_model),
+    path('api/predict/data', views.predict_data)
 
 ]
 urlpatterns += router.urls

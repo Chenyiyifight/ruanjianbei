@@ -14,6 +14,7 @@ import json
 import pickle
 import pandas as pd
 from sklearn.metrics import f1_score
+from sklearn.svm import SVC
 # Create your views here.
 
 def depart_list(request):
@@ -52,7 +53,6 @@ def train_model(request):
     features[numeric_features] = features[numeric_features].apply(
         lambda x: (x - x.mean()) / (x.std())
     )
-
     features_labels = pd.concat([features, df[['label']]], axis=1)
     train_features = pd.concat([df[['sample_id']], features], axis=1)
 
@@ -137,6 +137,88 @@ def predict_data(request):
     return HttpResponse(json_response, content_type='application/json')
 
 
+import json
+from django.http import JsonResponse
+
+def my_json_view(request):
+    data = json.loads(request.body)
+    if data == 1:
+            # LightGBM
+            df = pd.read_csv('d:\\folder\\custom_name.csv', index_col=None)
+            features = df.iloc[:, 1:-1]
+            numeric_features = features.dtypes[features.dtypes != 'object'].index
+
+            features[numeric_features] = features[numeric_features].apply(
+                lambda x: (x - x.mean()) / (x.std())
+            )
+            features_labels = pd.concat([features, df[['label']]], axis=1)
+            train_features = pd.concat([df[['sample_id']], features], axis=1)
+            train_label = df[['sample_id', 'label']]
+            df = pd.concat([train_features, train_label[['label']]], axis=1)
+            X, Y = df.iloc[:, 1:-1], df.iloc[:, -1]
+            x_train, x_test, y_train, y_test = train_test_split(
+                X, Y, test_size=0.2, random_state=123
+            )
+            lgb_clf = LGBMClassifier()
+            # 在训练集上训练LightGBM模型
+            lgb_clf.fit(x_train, y_train)
+            #  在训练集和测试集上分别利用训练好的模型进行预测
+            lgb_predict = lgb_clf.predict(x_test)
+            with open('d:\\folder\\my_model.pkl', 'wb') as f:
+                pickle.dump(lgb_clf, f)
+            print(f1_score(y_test, lgb_predict, average="macro"))
+            # return HttpResponse("模型训练成功")
+            f1 = f1_score(y_test, lgb_predict, average="macro")
+            return HttpResponse(f"F1 分数为: {f1}")
+    elif data == 2:
+            # random forest
+            df = pd.read_csv('d:\\folder\\custom_name.csv', index_col=None)
+            features = df.iloc[:, 1:-1]
+            numeric_features = features.dtypes[features.dtypes != 'object'].index
+            features[numeric_features] = features[numeric_features].apply(
+                lambda x: (x - x.mean()) / (x.std())
+            )
+            features_labels = pd.concat([features, df[['label']]], axis=1)
+            train_features = pd.concat([df[['sample_id']], features], axis=1)
+            train_label = df[['sample_id', 'label']]
+            df = pd.concat([train_features, train_label[['label']]], axis=1)
+            X, Y = df.iloc[:, 1:-1], df.iloc[:, -1]
+            x_train, x_test, y_train, y_test = train_test_split(
+                X, Y, test_size=0.2, random_state=123
+            )
+            rf_clf = RandomForestClassifier()
+            # 在训练集上训练Random Forest模型
+            rf_clf.fit(x_train, y_train)
+            # 在训练集和测试集上分别利用训练好的模型进行预测
+            rf_predict = rf_clf.predict(x_test)
+            with open('d:\\folder\\my_rf_model.pkl', 'wb') as f:
+                pickle.dump(rf_clf, f)
+            f1_rf = f1_score(y_test, rf_predict, average="macro")
+            return HttpResponse(f"F1 分数为: {f1_rf}")
+    elif data == 3:
+        df = pd.read_csv('d:\\folder\\custom_name.csv', index_col=None)
+        features = df.iloc[:, 1:-1]
+        numeric_features = features.dtypes[features.dtypes != 'object'].index
+        features[numeric_features] = features[numeric_features].apply(
+            lambda x: (x - x.mean()) / (x.std())
+        )
+        features_labels = pd.concat([features, df[['label']]], axis=1)
+        train_features = pd.concat([df[['sample_id']], features], axis=1)
+        train_label = df[['sample_id', 'label']]
+        df = pd.concat([train_features, train_label[['label']]], axis=1)
+        X, Y = df.iloc[:, 1:-1], df.iloc[:, -1]
+        x_train, x_test, y_train, y_test = train_test_split(
+            X, Y, test_size=0.2, random_state=123
+        )
+        # 使用SVM模型
+        svm_clf = SVC()
+        svm_clf.fit(x_train, y_train)
+        svm_predict = svm_clf.predict(x_test)
+        with open('d:\\folder\\my_svm_model.pkl', 'wb') as f:
+            pickle.dump(svm_clf, f)
+        f1 = f1_score(y_test, svm_predict, average="macro")
+        return HttpResponse(f"F1 分数为: {f1}")
+    # return JsonResponse(response_data)
 
 
 
