@@ -1,13 +1,14 @@
 <template>
     <div class="body">
-        <div id="chat-container">
-            <div id="chat-messages">
+        <div id="chat-container" :class="{ minimized: isMinimized }">
+            <div @click="toggleMinimize" class="toggle-button">&#8597;</div>
+            <div id="chat-messages" v-show="!isMinimized">
                 <div class="message received">我是AI小助手🤡</div>
                 <div v-for="message in messages" :key="message.id" :class="message.type">
                     {{ message.text }}
                 </div>
             </div>
-            <div id="chat-input">
+            <div id="chat-input" v-show="!isMinimized">
                 <input type="text" id="user-input" placeholder="Type your message..." v-model="userMessage"
                     @keydown.enter.prevent="sendMessage">
                 <button @click="sendMessage" id="sendButton">Send</button>
@@ -21,7 +22,8 @@ export default {
     data() {
         return {
             userMessage: '',
-            messages: []
+            messages: [],
+            isMinimized: false
         };
     },
     methods: {
@@ -78,6 +80,9 @@ export default {
             } else {
                 throw new Error('Failed to fetch AI response');
             }
+        },
+        toggleMinimize() {
+            this.isMinimized = !this.isMinimized;
         }
     }
 }
@@ -166,5 +171,17 @@ export default {
 #chat-input button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+#chat-container.minimized {
+    width: 50px; /* 设置最小化时的宽度 */
+    height: 50px; /* 设置最小化时的高度 */
+}
+
+.toggle-button {
+    background-color: rgb(138, 147, 236) ;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
 }
 </style>
