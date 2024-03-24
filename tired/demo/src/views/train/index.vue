@@ -9,23 +9,25 @@
                 <div slot="tip" class="el-upload__tip">只能上传excel文件，且不超过500kb</div>
             </el-upload>
 
-            <el-row>
-                <el-button type="primary" @click="jump1">模型训练</el-button>
-            </el-row>
-
-
+            <div class="container">
+                <el-select v-model="value" placeholder="请选择" class="item">
+                    <el-option v-for="item in tOptions" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+                <el-row class="item">
+                    <el-button type="primary" @click="jump1">模型训练</el-button>
+                </el-row>
+            </div>
             <el-row>
                 <el-button type="primary" @click="jump2" name="file">模型预测</el-button>
             </el-row>
         </div>
 
-
-        <div>
-            <e-charts class="chart" :option="option" />
-        </div>
+        <e-charts class="chart" :option="option" />
 
     </div>
 </template>
+
 <script>
 import axios from 'axios';
 import { getData } from '../../api'
@@ -39,7 +41,6 @@ export default {
     },
     data() {
         return {
-            // tableData: Array(20).fill(item),
             option: {
                 title: {
                     text: 'Stacked Line'
@@ -101,9 +102,29 @@ export default {
                         data: [820, 932, 901, 934, 1290, 1330, 1320]
                     }
                 ]
-            }
+            },
+            tOptions: [{
+                value: '选项1',
+                label: '黄金糕'
+            }, {
+                value: '选项2',
+                label: '双皮奶'
+            }, {
+                value: '选项3',
+                label: '蚵仔煎'
+            }, {
+                value: '选项4',
+                label: '龙须面'
+            }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }],
+            value: ''
+            
         }
     },
+    //tableData: Array(20).fill(item),
+
     methods: {
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -142,6 +163,9 @@ export default {
                 });
         }
 
+    },
+    mounted() {
+        this.initChart();
     }
 }
 
@@ -152,5 +176,21 @@ export default {
     height: 400px;
     width: 70%;
     margin-top: 30px;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.item {
+    margin-right: 20px;
+}
+
+/* 最后一个元素去掉右边距 */
+.item:last-child {
+    margin-right: 0;
 }
 </style>
