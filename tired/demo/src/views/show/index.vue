@@ -13,7 +13,6 @@
                 </div>
             </el-col>
         </el-row>
-        <div></div>
     </div>
 </template>
 
@@ -86,6 +85,6 @@ export default {
 <style lang="less" scoped>
 .chart {
     height: 400px;
-    width: 550px;
+    width:100%;
 }
 </style>

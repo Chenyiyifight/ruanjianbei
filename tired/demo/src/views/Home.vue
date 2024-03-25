@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :span="6">
+        <el-col :span="14">
             <el-card class="box-card">
                 <div class="user">
                     <img src="../assets/images/user.png" alt="">
@@ -11,9 +11,6 @@
                 </div>
                 <div class="login-info"></div>
             </el-card>
-
-        </el-col>
-        <el-col :span="16">
             <e-charts class="chart" :option="option" />
         </el-col>
     </el-row>
@@ -87,6 +84,6 @@ export default {
 
 .chart {
     height: 400px;
-    width: 70%;
+    width: 100%;
 }
 </style>

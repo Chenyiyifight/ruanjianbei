@@ -49,10 +49,11 @@ export default {
     background: #99a9bf;
 }
 .ai {
-    position: absolute; /* 使用绝对定位 */
-    top: 200px; /* 距离顶部的距离 */
-    right: 10px; /* 距离右侧的距离 */
-    height: 500px;
+    position:fixed; /* 使用绝对定位 */
+    top: 20%; /* 距离顶部的距离 */
+    right: 0.3%; /* 距离右侧的距离 */
+    height: 60%;
     width: 30%;
 }
+
 </style>

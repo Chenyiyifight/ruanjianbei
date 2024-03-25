@@ -17,7 +17,8 @@
                         <h1>登录</h1>
                         <form class="more-padding" autocomplete="off">
                             <input type="text" placeholder="账号" v-model="info.username" />
-                            <input type="password" placeholder="密码" v-model="info.password" />
+                            <input type="password" placeholder="密码" v-model="info.password"
+                                @keydown.enter.prevent="signin" />
                             <div class="checkbox">
                                 <input type="checkbox" id="remember" />
                                 <label for="remember">记住我</label>
@@ -100,7 +101,7 @@ export default {
             getMenu(this.info).then(response => {
                 if (response.data.code === 200) {
                     const token = Mock.Random.guid();
-                    Cookie.set('token',token);
+                    Cookie.set('token', token);
                     //Cookie.set('token', response.data.data.token)
                     this.$router.push('/home')
                 } else {
